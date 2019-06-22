@@ -5,9 +5,29 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/rewrite-target: /$1
+    certmanager.k8s.io/cluster: 'letsencrypt-prod'
+    nginx.ingress.kubernetes.io/ssl-redirect: 'true'
 spec:
+  tls:
+    -hosts:
+      - tinuke.com
+      - www.tinuke.com
+      secretName: tinuke-com
   rules:
-    - http:
+    - host: tinuke.com
+      http:
+        paths:
+          - path: /?(.*)
+            backend:
+              serviceName: client-cluster-ip-service
+              servicePort: 3000
+          - path: /api/?(.*)
+            backend:
+              serviceName: server-cluster-ip-service
+              servicePort: 5000
+
+    - host: www.tinuke.com
+      http:
         paths:
           - path: /?(.*)
             backend:
