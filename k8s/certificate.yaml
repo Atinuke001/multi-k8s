@@ -1,0 +1,20 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: tinuke-com-tls
+spec:
+  secretName: tinuke-com
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: tinuke.com
+  dnsNames:
+    - tinuke.com
+    - www.tinuke.com
+  acme:
+    config:
+      - http01:
+          ingressClass: nginx
+        domains:
+          - tinuke.com
+          - www.tinuke.com
