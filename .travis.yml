@@ -15,7 +15,7 @@ before_install:
   - export GOOGLE_APPLICATION_CREDENTIALS="service-account.json"
   - gcloud config set project multi-k8s-244513
   - gcloud config set compute/zone europe-west2-b
-  - gcloud container clusters get-credentials multi-clusters
+  - gcloud container clusters get-credentials multi-clusters --zone europe-west2-b
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker build -t akinsanya4/react-test -f ./client/Dockerfile.dev ./client
 
