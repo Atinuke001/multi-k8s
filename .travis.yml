@@ -12,6 +12,7 @@ before_install:
   - gcloud components update kubectl
   - gcloud auth activate-service-account --key-file service-account.json
   - gcloud config set container/use_client_certificate True
+  - export GOOGLE_APPLICATION_CREDENTIALS="service-account.json"
   - gcloud config set project multi-k8s-244513
   - gcloud config set compute/zone europe-west2-b
   - gcloud container clusters get-credentials multi-clusters
